@@ -6,34 +6,37 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
-
-    public UserDaoImpl(SessionFactoryUtils sessionFactoryUtils) {
-        this.sessionFactoryUtils = sessionFactoryUtils;
-    }
-
     private SessionFactoryUtils sessionFactoryUtils;
 
     public UserDaoImpl() {
     }
 
+    public UserDaoImpl(SessionFactoryUtils sessionFactoryUtils) {
+        this.sessionFactoryUtils = sessionFactoryUtils;
+    }
+
     @Override
-    public Optional<User> findById(Long id) {
+//    public Optional<User> findById(Long id) {
+    public User findById(Long id) {
         try (Session session = sessionFactoryUtils.getSession()) {
             session.beginTransaction();
-            Optional<User> user = Optional.ofNullable(session.get(User.class, id));
+//            Optional<User> user = Optional.ofNullable(session.get(User.class, id));
+        User user = session.get(User.class, id);
             session.getTransaction().commit();
             return user;
         }
     }
 
     @Override
-    public Optional<User> findByName(String name) {
+//    public Optional<User> findByName(String name) {
+    public User findByName(String name) {
         try (Session session = sessionFactoryUtils.getSession()) {
             session.beginTransaction();
-            Optional<User> user = Optional.ofNullable(session
+//            Optional<User> user = Optional.ofNullable(session
+            User user = session
                     .createQuery("select user from User user where user.name = :name", User.class)
                     .setParameter("name", name)
-                    .getSingleResult());
+                    .getSingleResult();
 
             session.getTransaction().commit();
             return user;
@@ -48,6 +51,15 @@ public class UserDaoImpl implements UserDao {
             List<User> users = session.createQuery("select u from User u").getResultList();
             session.getTransaction().commit();
             return users;
+        }
+    }
+
+    @Override
+    public void save(User user) {
+        try (Session session = sessionFactoryUtils.getSession()) {
+            session.beginTransaction();
+            session.saveOrUpdate(user);
+            session.getTransaction().commit();
         }
     }
 

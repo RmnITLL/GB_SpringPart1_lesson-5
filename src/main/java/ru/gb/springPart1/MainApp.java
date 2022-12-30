@@ -100,8 +100,11 @@ public class MainApp {
 
         try {
             UserDao userDao = new UserDaoImpl(sessionFactoryUtils);
+            userDao.save(new User("Max"));
+            System.out.println(userDao.findAll());
 
-            System.out.println(userDao.findByName("Jack2").get());
+
+//            System.out.println(userDao.findByName("Jack"));
 
 //            User user = userDao.findById(3L);
 //            user.print();
