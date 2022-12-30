@@ -14,6 +14,9 @@ public class User {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "score")
+    private int score;
+
     public User() {}
 
     public User(String name) {
@@ -41,6 +44,14 @@ public class User {
         this.name = name;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public void print() {
         System.out.println("User id = " + id + "; name =  " + name);
     }
@@ -50,6 +61,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", score=" + score +
                 '}';
     }
 }

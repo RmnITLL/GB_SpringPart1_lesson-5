@@ -99,11 +99,11 @@ public class MainApp {
 
 
         try {
-            UserDao userDao = new UserDaoImpl(sessionFactoryUtils);
-            System.out.println(userDao.findAll());
+//            UserDao userDao = new UserDaoImpl(sessionFactoryUtils);
+//            System.out.println(userDao.findAll());
 //            userDao.save(new User("Max"));
-            userDao.updateNameById(1L, "Zeratul");
-            System.out.println(userDao.findAll());
+//            userDao.updateNameById(1L, "Zeratul");
+//            System.out.println(userDao.findAll());
 
 
 //            System.out.println(userDao.findByName("Jack"));
@@ -118,7 +118,8 @@ public class MainApp {
 //            User oldUser = session.get(User.class, 2L);
 //            oldUser.print();
 //            session.getTransaction().commit();
-
+        UserDao userDao = new UserDaoImpl(sessionFactoryUtils);
+        userDao.testCaching();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -79,4 +79,24 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public void testCaching() {
+        try (Session session = sessionFactoryUtils.getSession()) {
+            session.beginTransaction();
+             session.get(User.class, 1L);
+             session.get(User.class, 1L);
+             session.get(User.class, 1L);
+
+            session.getTransaction().commit();
+        }
+
+        try (Session session = sessionFactoryUtils.getSession()) {
+            session.beginTransaction();
+            session.get(User.class, 1L);
+            session.get(User.class, 1L);
+            session.get(User.class, 1L);
+
+            session.getTransaction().commit();
+        }
+    }
 }
