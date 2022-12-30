@@ -63,4 +63,20 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+    @Override
+    public void updateNameById(Long id, String newName) {
+        //       HQL Example
+        //            session.createQuery("update User u set u.name = :name where u.id = :id")
+//                    .setParameter("name", newName)
+//                    .setParameter("id", id)
+//                    .executeUpdate();
+        try (Session session = sessionFactoryUtils.getSession()) {
+            session.beginTransaction();
+
+            User user = session.get(User.class, id);
+            user.setName(newName);
+            session.getTransaction().commit();
+        }
+    }
+
 }

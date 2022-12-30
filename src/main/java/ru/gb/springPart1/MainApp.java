@@ -100,7 +100,9 @@ public class MainApp {
 
         try {
             UserDao userDao = new UserDaoImpl(sessionFactoryUtils);
-            userDao.save(new User("Max"));
+            System.out.println(userDao.findAll());
+//            userDao.save(new User("Max"));
+            userDao.updateNameById(1L, "Zeratul");
             System.out.println(userDao.findAll());
 
 
